@@ -8,7 +8,7 @@ a) DDL COMMANDS-CREATE
 
 INPUT
 
-MYSQL>CREATE TABLE EMPLOYEE(emp_id int primary key,Name varchar(30),city varchar(30),dob date,aadhar_no int);
+mysql>CREATE TABLE EMPLOYEE(emp_id int primary key,Name varchar(30),city varchar(30),dob date,aadhar_no int);
 
 OUTPUT
 
@@ -37,7 +37,7 @@ mysql> DESC EMPLOYEE;
 
 INPUT 
 
-MYSQL>create table STUDENTS(Roll_No int primary key,Name varchar(30) not null,age int not null check (age<=99),Address varchar(50),Gender varchar(2) default "m ");
+mysql>create table STUDENTS(Roll_No int primary key,Name varchar(30) not null,age int not null check (age<=99),Address varchar(50),Gender varchar(2) default "m ");
 
 OUTPUT
 
@@ -61,7 +61,7 @@ desc STUDENT;
 
 INPUT
 
-CREATE TEMPORARY TABLE  STUDENT1 AS SELECT * FROM STUDENT;
+mysql>CREATE TEMPORARY TABLE  STUDENT1 AS SELECT * FROM STUDENT;
 
 OUTPUT
 
@@ -86,7 +86,7 @@ DESC STUDENT1;
 
 INPUT 
 
-CREATE TABLE  EMPLOYEE1 AS SELECT * FROM EMPLOYEE;
+mysql>CREATE TABLE  EMPLOYEE1 AS SELECT * FROM EMPLOYEE;
 
 OUTPUT
 
@@ -115,7 +115,7 @@ mysql> DESC EMPLOYEE1;
                       Invoice_item(inv_id (FK),  pid(FK), quantity)
 INPUT
 
-1-CREATE TABLE CUSTOMER(ID INT PRIMARY KEY,NAME VARCHAR(15),ADDRESS VARCHAR(50),PH_NO INT,CITY VARCHAR(15);
+mysql>CREATE TABLE CUSTOMER(ID INT PRIMARY KEY,NAME VARCHAR(15),ADDRESS VARCHAR(50),PH_NO INT,CITY VARCHAR(15);
 Query OK, 0 rows affected (0.34 sec)
 
 OUTPUT
@@ -132,7 +132,7 @@ mysql> DESC PRODUCT;
 
 INPUT
 
-2-CREATE TABLE PRODUCT(P_ID INT PRIMARY KEY,P_NAME VARCHAR(20),PRICE INT DEFAULT 0);
+mysql>CREATE TABLE PRODUCT(P_ID INT PRIMARY KEY,P_NAME VARCHAR(20),PRICE INT DEFAULT 0);
 
 OUTPUT 
 
@@ -148,7 +148,7 @@ mysql> DESC INVOICE_MASTER;
 
 INPUT
 
-3-CREATE TABLE INVOICE_MASTER(INV_ID INT PRIMARY KEY,ID INT,CONSTRAINT FK_ID FOREIGN KEY(ID) REFERENCES CUSTOMER(ID),INV_DATE DATE);
+mysql>CREATE TABLE INVOICE_MASTER(INV_ID INT PRIMARY KEY,ID INT,CONSTRAINT FK_ID FOREIGN KEY(ID) REFERENCES CUSTOMER(ID),INV_DATE DATE);
 
 OUTPUT 
 
@@ -165,7 +165,7 @@ mysql> DESC INVOICE_MASTER;
 
 
 
-4-CREATE TABLE INVOICE_ITEM(INV_ID INT,P_ID INT,QUANTITY INT,CONSTRAINT FK_PID FOREIGN KEY(INV_ID) REFERENCES INVOICE_MASTER(INV_ID),CONSTRAINT FK_PD FOREIGN KEY(P_ID) REFERENCES PRODUCT(P_ID));
+mysql>CREATE TABLE INVOICE_ITEM(INV_ID INT,P_ID INT,QUANTITY INT,CONSTRAINT FK_PID FOREIGN KEY(INV_ID) REFERENCES INVOICE_MASTER(INV_ID),CONSTRAINT FK_PD FOREIGN KEY(P_ID) REFERENCES PRODUCT(P_ID));
 
 Query OK, 0 rows affected (0.57 sec)
 
@@ -190,7 +190,7 @@ b) DDL COMMANDS- ALTER & DROP
 
 INPUT
 
-ALTER TABLE EMPLOYEE ADD SSN INT FIRST;
+mysql>ALTER TABLE EMPLOYEE ADD SSN INT FIRST;
 
 OUTPUT
 
@@ -216,7 +216,7 @@ mysql> DESC EMPLOYEE;
 
 INPUT
 
-ALTER TABLE EMPLOYEE MODIFY COLUMN dob year;
+mysql>ALTER TABLE EMPLOYEE MODIFY COLUMN dob year;
 
 OUTPUT
 
@@ -241,7 +241,7 @@ mysql> DESC EMPLOYEE;
 3. Delete the column ‘emp_id’ the table EMPLOYEE.
 
 INPUT
-ALTER TABLE EMPLOYEE DROP emp_id;
+mysql>ALTER TABLE EMPLOYEE DROP emp_id;
 
 OUTPUT 
 
@@ -268,7 +268,7 @@ mysql>
 
 INPUT
 
-ALTER TABLE EMPLOYEE ADD constraint unique(SSN,aadhar_no);
+mysql>ALTER TABLE EMPLOYEE ADD constraint unique(SSN,aadhar_no);
 
 OUTPUT 
 
@@ -286,6 +286,77 @@ mysql> DESC EMPLOYEE;
 | aadhar_no | int(11)     | YES  |     | NULL    |       |
 +-----------+-------------+------+-----+---------+-------+
 5 rows in set (0.00 sec)
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+5. Delete the NULL constraint of ‘age’ in the STUDENT table.
+
+INPUT
+mysql> ALTER TABLE STUDENT MODIFY age INT NULL;
+
+OUTPUT 
+
+Query OK, 2 rows affected (0.98 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> desc STUDENT;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| Roll_No | int(11)     | NO   | PRI | NULL    |       |
+| Name    | varchar(30) | NO   |     | NULL    |       |
+| age     | int(11)     | YES  |     | NULL    |       |
+| Address | varchar(50) | YES  |     | NULL    |       |
+| Gender  | varchar(2)  | YES  |     | m       |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 6. Change the table name EMPLOYEE as PERSON
+
+INPUT
+
+mysql> ALTER TABLE EMPLOYEE RENAME PERSON;
+
+OUTPUT
+
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> desc PERSON;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| SSN       | int(11)     | YES  | MUL | NULL    |       |
+| Name      | varchar(30) | YES  |     | NULL    |       |
+| city      | varchar(30) | YES  |     | NULL    |       |
+| dob       | year(4)     | YES  |     | NULL    |       |
+| aadhar_no | int(11)     | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> 
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+7.Delete the table EMPLOYEE1.
+
+INPUT
+
+ mysql> DROP TABLE EMPLOYEE1;
+
+OUTPUT
+
+Query OK, 0 rows affected (0.21 sec)
+
+mysql> SHOW TABLES;
++---------------+
+| Tables_in_DDL |
++---------------+
+| PERSON        |
+| STUDENT       |
++---------------+
+2 rows in set (0.00 sec)
+
 
 
 
