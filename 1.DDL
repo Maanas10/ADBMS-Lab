@@ -1,9 +1,14 @@
+                                                    EXP 1.1: DDL COMMANDS
+                                                    *********************
+
+
+
 a) DDL COMMANDS-CREATE
 1.      Create a table EMPLOYEE have the following fields (emp_id, name,city,dob,adhar_no)
 
 INPUT
 
-CREATE TABLE EMPLOYEE(emp_id int primary key,Name varchar(30),city varchar(30),dob date,aadhar_no int);
+MYSQL>CREATE TABLE EMPLOYEE(emp_id int primary key,Name varchar(30),city varchar(30),dob date,aadhar_no int);
 
 OUTPUT
 
@@ -32,7 +37,7 @@ mysql> DESC EMPLOYEE;
 
 INPUT 
 
-create table STUDENTS(Roll_No int primary key,Name varchar(30) not null,age int not null check (age<=99),Address varchar(50),Gender varchar(2) default "m ");
+MYSQL>create table STUDENTS(Roll_No int primary key,Name varchar(30) not null,age int not null check (age<=99),Address varchar(50),Gender varchar(2) default "m ");
 
 OUTPUT
 
@@ -285,7 +290,7 @@ mysql> DESC EMPLOYEE;
 
 
 
-
+//ADD MYSQL> BEFORE EACH QUERY
 
 
 
