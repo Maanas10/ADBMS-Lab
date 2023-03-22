@@ -1,0 +1,204 @@
+                                                             ***a) TCL COMMANDS***
+                                                                   .............
+
+1.Commit
+
+mysql> SET AUTOCOMMIT=OFF;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++-------+--------+------------+------+-----------+
+| SSN   | Name   | city       | dob  | aadhar_no |
++-------+--------+------------+------+-----------+
+| 12345 | Maanas | Kozhikode  | 2001 | 234523453 |
+| 12346 | Aswin  | Delhi      | 2000 | 875638239 |
+| 12347 | Vishnu | Bangalore  | 2001 | 878673456 |
+| 12347 | Minhaj | Malappuram | 1999 | 567329876 |
++-------+--------+------------+------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO EMPLOYEE values(12348,"Ram","Thrissur",2000,232135742);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++-------+--------+------------+------+-----------+
+| SSN   | Name   | city       | dob  | aadhar_no |
++-------+--------+------------+------+-----------+
+| 12345 | Maanas | Kozhikode  | 2001 | 234523453 |
+| 12346 | Aswin  | Delhi      | 2000 | 875638239 |
+| 12347 | Vishnu | Bangalore  | 2001 | 878673456 |
+| 12347 | Minhaj | Malappuram | 1999 | 567329876 |
+| 12348 | Ram    | Thrissur   | 2000 | 232135742 |
++-------+--------+------------+------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> 
+
+.........................................................................................................................................................     2.    Rollback
+
+mysql> INSERT INTO EMPLOYEE values(12345,"Akash","Kollam",2000,232167121);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++-------+--------+------------+------+-----------+
+| SSN   | Name   | city       | dob  | aadhar_no |
++-------+--------+------------+------+-----------+
+| 12345 | Maanas | Kozhikode  | 2001 | 234523453 |
+| 12346 | Aswin  | Delhi      | 2000 | 875638239 |
+| 12347 | Vishnu | Bangalore  | 2001 | 878673456 |
+| 12347 | Minhaj | Malappuram | 1999 | 567329876 |
+| 12348 | Ram    | Thrissur   | 2000 | 232135742 |
+| 12345 | Akash  | Kollam     | 2000 | 232167121 |
++-------+--------+------------+------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++-------+--------+------------+------+-----------+
+| SSN   | Name   | city       | dob  | aadhar_no |
++-------+--------+------------+------+-----------+
+| 12345 | Maanas | Kozhikode  | 2001 | 234523453 |
+| 12346 | Aswin  | Delhi      | 2000 | 875638239 |
+| 12347 | Vishnu | Bangalore  | 2001 | 878673456 |
+| 12347 | Minhaj | Malappuram | 1999 | 567329876 |
+| 12348 | Ram    | Thrissur   | 2000 | 232135742 |
++-------+--------+------------+------+-----------+
+5 rows in set (0.01 sec)
+
+mysql> 
+
+.........................................................................................................................................................
+
+ 3.  Savepoint
+
+ mysql>INSERT INTO EMPLOYEE values(12345,"Akash","Kollam",2000,232167121);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint A;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO EMPLOYEE values(12356,"Prakash","Kottayamm",2000,23256544);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint B;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> INSERT INTO EMPLOYEE values(12367,"PRAJITH","Kollam",2000,232566757);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint c;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++-------+---------+------------+------+-----------+
+| SSN   | Name    | city       | dob  | aadhar_no |
++-------+---------+------------+------+-----------+
+| 12345 | Maanas  | Kozhikode  | 2001 | 234523453 |
+| 12346 | Aswin   | Delhi      | 2000 | 875638239 |
+| 12347 | Vishnu  | Bangalore  | 2001 | 878673456 |
+| 12347 | Minhaj  | Malappuram | 1999 | 567329876 |
+| 12348 | Ram     | Thrissur   | 2000 | 232135742 |
+| 12345 | Akash   | Kollam     | 2000 | 232167121 |
+| 12356 | Prakash | Kottayamm  | 2000 |  23256544 |
+| 12367 | PRAJITH | Kollam     | 2000 | 232566757 |
++-------+---------+------------+------+-----------+
+8 rows in set (0.00 sec)
+
+mysql> ROLLBACK TO B;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++-------+---------+------------+------+-----------+
+| SSN   | Name    | city       | dob  | aadhar_no |
++-------+---------+------------+------+-----------+
+| 12345 | Maanas  | Kozhikode  | 2001 | 234523453 |
+| 12346 | Aswin   | Delhi      | 2000 | 875638239 |
+| 12347 | Vishnu  | Bangalore  | 2001 | 878673456 |
+| 12347 | Minhaj  | Malappuram | 1999 | 567329876 |
+| 12348 | Ram     | Thrissur   | 2000 | 232135742 |
+| 12345 | Akash   | Kollam     | 2000 | 232167121 |
+| 12356 | Prakash | Kottayamm  | 2000 |  23256544 |
++-------+---------+------------+------+-----------+
+7 rows in set (0.00 sec)
+
+mysql> 
+
+.........................................................................................................................................................
+.........................................................................................................................................................
+.........................................................................................................................................................
+
+                                                            ***DCL COMMAND***
+
+Create two users user1, user2
+1.GRANT
+  ->Give insert and select privilege to user 1 on customer table in the invoice database.
+  ->Give update and delete privilege to user 2 on all tables in the invoice database.
+
+mysql> CREATE USER 'USER1'@'localhost' IDENTIFIED BY 'pass1';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CREATE USER 'USER2'@'localhost' IDENTIFIED BY 'pass2';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> GRANT INSERT,SELECT ON CUSTOMER TO 'USER1'@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> GRANT DELETE,UPDATE  ON INVOICE.* TO 'USER2'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> 
+
+  2.      REVOKE
+                   ->Remove delete privilege of user 2.
+
+mysql> REVOKE DELETE ON INVOICE.* from 'USER2'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
