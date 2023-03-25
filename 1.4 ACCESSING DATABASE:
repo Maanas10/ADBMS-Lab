@@ -1,0 +1,411 @@
+              *****Experiment No: 1.4 ACCESSING DATABASE:  (SELECT, Filtering using WHERE, HAVING,  ORDER BY Clauses)*****
+
+
+1.    List all customer details.
+
+mysql> SELECT * FROM CUSTOMER;
++-----+---------+----------------------+------------+------------+
+| ID  | NAME    | ADDRESS              | PH_NO      | CITY       |
++-----+---------+----------------------+------------+------------+
+| 100 | Maanas  | Palakkunnummal House | 9020112197 | Calicut    |
+| 102 | Vishnu  | Chembra House        | 9539963367 | Calicut    |
+| 105 | Minhaj  | Vallyaveetil House   | 8086909939 | Malappuram |
+| 106 | Vyshnav | Sreenilyam House     | 7854328521 | Wayanad    |
++-----+---------+----------------------+------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> 
+
+...................................................................................................................................................
+2.    List pname, price of all products.
+
+mysql> SELECT P_ID,P_NAME FROM PRODUCT;
++------+----------------------+
+| P_ID | P_NAME               |
++------+----------------------+
+|  301 | DARK CHOCALATE       |
+|  323 | PINPOINT PEN         |
+|  332 | KABSA KIT            |
+|  335 | BASUMATHI RISE       |
+|  339 | AASHIRVAD AATTA 1KG  |
+|  432 | DIARYMILK SILK       |
+|  447 | LAYS CHIPS           |
+|  456 | 7UP 1 LTR            |
+|  467 | DINNER SET           |
+|  487 | ONION                |
+|  643 | FOG BODYSPRAY        |
+|  743 | CHILLY POWDER        |
+|  987 | COCONUT OIL 1 LTR    |
++------+----------------------+
+13 rows in set (0.00 sec)
+
+...................................................................................................................................................
+
+
+3.    List all invoice items, avoid duplicates.
+
+
+mysql> select distinct * from INVOICE_ITEM;
++--------+------+----------+
+| INV_ID | P_ID | QUANTITY |
++--------+------+----------+
+|   1002 |  332 |        4 |
+|   1176 |  487 |        5 |
+|   1232 |  301 |       50 |
+|   1790 |  432 |        2 |
+|   1002 |  301 |        2 |
++--------+------+----------+
+5 rows in set (0.00 sec)
+
+
+mysql> select distinct INV_ID  from INVOICE_ITEM;
++--------+
+| INV_ID |
++--------+
+|   1002 |
+|   1176 |
+|   1232 |
+|   1790 |
++--------+
+4 rows in set (0.02 sec)
+
+
+...................................................................................................................................................
+4.    List product price between 50rs and 150rs
+
+mysql> select * from PRODUCT where PRICE BETWEEN 50 AND 150;
++------+----------------------+-------+
+| P_ID | P_NAME               | PRICE |
++------+----------------------+-------+
+|  335 | BASUMATHI RISE       |    92 |
+|  339 | AASHIRVAD AATTA 1KG  |    82 |
+|  432 | DIARYMILK SILK       |   138 |
+|  456 | 7UP 1 LTR            |    92 |
+|  487 | ONION                |   101 |
+|  743 | CHILLY POWDER        |   148 |
++------+----------------------+-------+
+6 rows in set (0.00 sec)
+
+mysql> 
+
+...................................................................................................................................................
+
+5.List the customer details who lives in ‘CALICUT’,’WAYANAD’.
+
+mysql> SELECT * FROM CUSTOMER WHERE CITY IN("Calicut","Wayanad");
++-----+---------+----------------------+------------+---------+
+| ID  | NAME    | ADDRESS              | PH_NO      | CITY    |
++-----+---------+----------------------+------------+---------+
+| 100 | Maanas  | Palakkunnummal House | 9020112197 | Calicut |
+| 102 | Vishnu  | Chembra House        | 9539963367 | Calicut |
+| 106 | Vyshnav | Sreenilyam House     | 7854328521 | Wayanad |
++-----+---------+----------------------+------------+---------+
+3 rows in set (0.00 sec)
+
+...................................................................................................................................................
+
+6.    List the invoice details from 1st January 2023 to 15th February 2023
+
+mysql> SELECT * FROM INVOICE_MASTER;
++--------+------+------------+
+| INV_ID | ID   | INV_DATE   |
++--------+------+------------+
+|   1002 |  100 | 2023-03-22 |
+|   1176 |  100 | 2023-04-23 |
+|   1232 |  102 | 2023-02-12 |
+|   1790 |  100 | 2023-01-25 |
++--------+------+------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM INVOICE_MASTER WHERE INV_DATE BETWEEN "2023-01-01" AND '2023-02-15';
++--------+------+------------+
+| INV_ID | ID   | INV_DATE   |
++--------+------+------------+
+|   1232 |  102 | 2023-02-12 |
+|   1790 |  100 | 2023-01-25 |
++--------+------+------------+
+2 rows in set (0.00 sec)
+
+mysql> 
+
+...................................................................................................................................................
+
+7.    List the customer details who not live in ‘Calicut’.
+
+mysql> SELECT * FROM CUSTOMER WHERE CITY!="Calicut" ;
++-----+---------+--------------------+------------+------------+
+| ID  | NAME    | ADDRESS            | PH_NO      | CITY       |
++-----+---------+--------------------+------------+------------+
+| 101 | Aswin   | Dreams villa House |       NULL | Kozhikode  |
+| 104 | Hari    | Dreams House       |       NULL | Palakkad   |
+| 105 | Minhaj  | Vallyaveetil House | 8086909939 | Malappuram |
+| 106 | Vyshnav | Sreenilyam House   | 7854328521 | Wayanad    |
++-----+---------+--------------------+------------+------------+
+4 rows in set (0.00 sec)
+
+
+................................................................................................................................................... 
+
+8.    List the customers who have no phone number.
+
+mysql> SELECT * FROM CUSTOMER;
++-----+---------+----------------------+------------+------------+
+| ID  | NAME    | ADDRESS              | PH_NO      | CITY       |
++-----+---------+----------------------+------------+------------+
+| 100 | Maanas  | Palakkunnummal House | 9020112197 | Calicut    |
+| 101 | Aswin   | Dreams villa House   |       NULL | Kozhikode  |
+| 102 | Vishnu  | Chembra House        | 9539963367 | Calicut    |
+| 104 | Hari    | Dreams House         |       NULL | Palakkad   |
+| 105 | Minhaj  | Vallyaveetil House   | 8086909939 | Malappuram |
+| 106 | Vyshnav | Sreenilyam House     | 7854328521 | Wayanad    |
++-----+---------+----------------------+------------+------------+
+6 rows in set (0.00 sec)
+
+
+mysql> SELECT * FROM CUSTOMER where PH_NO is null;
++-----+-------+--------------------+-------+-----------+
+| ID  | NAME  | ADDRESS            | PH_NO | CITY      |
++-----+-------+--------------------+-------+-----------+
+| 101 | Aswin | Dreams villa House |  NULL | Kozhikode |
+| 104 | Hari  | Dreams House       |  NULL | Palakkad  |
++-----+-------+--------------------+-------+-----------+
+2 rows in set (0.01 sec)
+
+...................................................................................................................................................
+
+9.    Display customer names in descending order.
+
+
+mysql> SELECT NAME FROM CUSTOMER ORDER BY NAME DESC;
++---------+
+| NAME    |
++---------+
+| Vyshnav |
+| Vishnu  |
+| Minhaj  |
+| Maanas  |
+| Hari    |
+| Aswin   |
++---------+
+6 rows in set (0.00 sec)
+
+mysql> 
+
+...................................................................................................................................................
+
+
+10. Display the customer details sorted in ascending by city and descending by names.
+
+mysql> SELECT * FROM CUSTOMER ORDER BY CITY ASC,NAME DESC;
++-----+---------+----------------------+------------+------------+
+| ID  | NAME    | ADDRESS              | PH_NO      | CITY       |
++-----+---------+----------------------+------------+------------+
+| 102 | Vishnu  | Chembra House        | 9539963367 | Calicut    |
+| 100 | Maanas  | Palakkunnummal House | 9020112197 | Calicut    |
+| 101 | Aswin   | Dreams villa House   |       NULL | Kozhikode  |
+| 105 | Minhaj  | Vallyaveetil House   | 8086909939 | Malappuram |
+| 104 | Hari    | Dreams House         |       NULL | Palakkad   |
+| 106 | Vyshnav | Sreenilyam House     | 7854328521 | Wayanad    |
++-----+---------+----------------------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> 
+
+...................................................................................................................................................
+
+11. Find the customer names start with ‘A’.
+
+
+mysql> SELECT NAME FROM CUSTOMER WHERE NAME LIKE 'A%';
++-------+
+| NAME  |
++-------+
+| Aswin |
++-------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+...................................................................................................................................................
+
+
+12. Find the customer names who have ‘e’ or ‘a’ in them.
+
+mysql> SELECT NAME FROM CUSTOMER WHERE NAME LIKE '%a%' OR NAME LIKE '%e%';
++---------+
+| NAME    |
++---------+
+| Maanas  |
+| Aswin   |
+| Hari    |
+| Minhaj  |
+| Vyshnav |
++---------+
+5 rows in set (0.00 sec)
+
+mysql> 
+
+...................................................................................................................................................
+
+13. Find the customer names who have at least 3 characters.
+
+
+mysql> SELECT NAME FROM CUSTOMER WHERE NAME LIKE '___%';
++---------+
+| NAME    |
++---------+
+| Maanas  |
+| Aswin   |
+| Vishnu  |
+| Hari    |
+| Minhaj  |
+| Vyshnav |
++---------+
+6 rows in set (0.00 sec)
+
+mysql> 
+
+...................................................................................................................................................
+
+14. List the names of customers their names have ‘s’ in second position.
+
+
+mysql> SELECT NAME FROM CUSTOMER WHERE NAME LIKE '_s%';
++-------+
+| NAME  |
++-------+
+| Aswin |
++-------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+...................................................................................................................................................
+
+15. Find the customer names start with ‘a’ and are at least 3 characters in length.
+
+mysql> SELECT NAME FROM CUSTOMER WHERE NAME LIKE 'A__%';
++-------+
+| NAME  |
++-------+
+| Aswin |
++-------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
