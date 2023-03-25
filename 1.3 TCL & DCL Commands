@@ -148,11 +148,58 @@ Query OK, 0 rows affected (0.00 sec)
 mysql> CREATE USER 'USER2'@'localhost' IDENTIFIED BY 'pass2';
 Query OK, 0 rows affected (0.00 sec)
 
+mysql> SELECT USER FROM mysql.user;
++------------------+
+| USER             |
++------------------+
+| USER1            |
+| USER2            |
+| abc              |
+| alen             |
+| debian-sys-maint |
+| mysql.session    |
+| mysql.sys        |
+| phpmyadmin       |
+| root             |
+| sanan            |
+| user1            |
+| user2            |
+| user3            |
+| user4            |
++------------------+
+14 rows in set (0.00 sec)
+
+
 mysql> GRANT INSERT,SELECT ON CUSTOMER TO 'USER1'@'localhost';
 Query OK, 0 rows affected (0.01 sec)
 
+mysql> show GRANTS FOR USER1@'localhost';
++---------------------------------------------------------------------+
+| Grants for USER1@localhost                                          |
++---------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'USER1'@'localhost'                           |
+| GRANT UPDATE ON `INVOICE`.* TO 'USER1'@'localhost'                  |
+| GRANT SELECT, INSERT ON `INVOICE`.`CUSTOMER` TO 'USER1'@'localhost' |
++---------------------------------------------------------------------+
+3 rows in set (0.00 sec)
+
+
 mysql> GRANT DELETE,UPDATE  ON INVOICE.* TO 'USER2'@'localhost';
 Query OK, 0 rows affected (0.00 sec)
+
+mysql> show GRANTS FOR USER2@'localhost';
++------------------------------------------------------------+
+| Grants for USER2@localhost                                 |
++------------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'USER2'@'localhost'                  |
+| GRANT UPDATE, DELETE ON `INVOICE`.* TO 'USER2'@'localhost' |
++------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> 
+
+
+
 
 mysql> 
 
@@ -161,6 +208,18 @@ mysql>
 
 mysql> REVOKE DELETE ON INVOICE.* from 'USER2'@'localhost';
 Query OK, 0 rows affected (0.00 sec)
+
+mysql> show GRANTS FOR USER2@'localhost';
++----------------------------------------------------+
+| Grants for USER2@localhost                         |
++----------------------------------------------------+
+| GRANT USAGE ON *.* TO 'USER2'@'localhost'          |
+| GRANT UPDATE ON `INVOICE`.* TO 'USER2'@'localhost' |
++----------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> 
+
 
 .
 
