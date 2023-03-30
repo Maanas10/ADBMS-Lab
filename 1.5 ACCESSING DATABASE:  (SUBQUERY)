@@ -126,7 +126,7 @@ INV_ID HAVING COUNT(*)>1));
 mysql> 
 
 
-
+//LIST THE TABLE FIRST
 
 
 
