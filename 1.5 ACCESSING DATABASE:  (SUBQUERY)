@@ -1,0 +1,146 @@
+                                  ***EXPERIMENT NO: 1.5 - ACCESSING DATABASE:  (SUBQUERY)***
+
+
+
+
+
+
+
+
+
+1.    List the customer names of invoice date 3rd January 2023.
+
+mysql> SELECT NAME FROM CUSTOMER WHERE ID IN(SELECT ID FROM INVOICE_MASTER WHERE INV_DATE='2023-01-03');
++-------+
+| NAME  |
++-------+
+| Hari  |
+| Aswin |
++-------+
+2 rows in set (0.00 sec)
+
+mysql> 
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+2.    List the product name and price of each invoice item.
+
+mysql> SELECT P_NAME,PRICE FROM PRODUCT  WHERE P_ID IN(SELECT P_ID FROM INVOICE_ITEM );
++-----------------+-------+
+| P_NAME          | PRICE |
++-----------------+-------+
+| DARK CHOCALATE  |     1 |
+| KABSA KIT       |   173 |
+| DIARYMILK SILK  |   138 |
+| ONION           |   101 |
++-----------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> 
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+3. List the product names, only include their purchased quantity more than 3.
+
+mysql> SELECT P_NAME FROM PRODUCT  WHERE P_ID IN(SELECT P_ID FROM INVOICE_ITEM WHERE QUANTITY > 3);
++----------------+
+| P_NAME         |
++----------------+
+| KABSA KIT      |
+| ONION          |
+| DARK CHOCALATE |
++----------------+
+3 rows in set (0.04 sec)
+
+mysql> 
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+4.Find the product that has no sale.
+
+mysql> SELECT P_NAME FROM PRODUCT WHERE P_ID NOT IN (SELECT P_ID FROM INVOICE_ITEM);
++----------------------+
+| P_NAME               |
++----------------------+
+| PINPOINT PEN         |
+| BASUMATHI RISE       |
+| AASHIRVAD AATTA 1KG  |
+| LAYS CHIPS           |
+| 7UP 1 LTR            |
+| DINNER SET           |
+| FOG BODYSPRAY        |
+| CHILLY POWDER        |
+| COCONUT OIL 1 LTR    |
++----------------------+
+9 rows in set (0.00 sec)
+
+mysql> 
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+5.  List the customer names who purchased the items ‘ONION’ and ‘DIARYMILK SILK’.
+
+
+mysql> SELECT NAME FROM CUSTOMER WHERE ID IN (SELECT ID FROM INVOICE_MASTER WHERE INV_ID IN (SELECT INV_ID FROM INVOICE_ITEM WHERE P_ID IN(SELECT P_ID FROM PRODUCT WHERE P_NAME  = "ONION" or P_NAME ="DIARYMILK SILK")));
++--------+
+| NAME   |
++--------+
+| Maanas |
++--------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+6.Display the purchased product details of the customer ’xyz’.
+
+mysql> SELECT P_NAME FROM PRODUCT WHERE P_ID IN (SELECT P_ID FROM INVOICE_ITEM WHERE INV_ID IN (SELECT INV_ID FROM INVOICE_MASTER WHERE ID IN (SELECT ID FROM CUSTOMER WHERE NAME='Maanas')));
++-----------------+
+| P_NAME          |
++-----------------+
+| KABSA KIT       |
+| DARK CHOCALATE  |
+| ONION           |
+| DIARYMILK SILK  |
++-----------------+
+4 rows in set (0.00 sec)
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+7.    List the names of all customers who have purchased at least 2 products, make sure that no duplicate names in the result.
+
+
+mysql> SELECT DISTINCT NAME FROM CUSTOMER WHERE ID IN (SELECT ID FROM INVOICE_MASTER WHERE INV_ID IN (SELECT INV_ID FROM INVOICE_ITEM GROUP BY
+INV_ID HAVING COUNT(*)>1));
++--------+
+| NAME   |
++--------+
+| Maanas |
++--------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
