@@ -1,0 +1,103 @@
+
+                               ***EXPERIMENT NO: 1.7 OPTIMIZING DATABASE:  (GROUP BY, AGGREGATE FUNCTIONS)***
+
+
+1.    List product name, price except PINPOINT PEN on price order.
+
+mysql> SELECT P_NAME,PRICE FROM PRODUCT WHERE P_NAME!='PINPOINT PEN' ORDER BY PRICE ASC;
++----------------------+-------+
+| P_NAME               | PRICE |
++----------------------+-------+
+| DARK CHOCALATE       |     1 |
+| LAYS CHIPS           |     5 |
+| AASHIRVAD AATTA 1KG  |    82 |
+| BASUMATHI RISE       |    92 |
+| 7UP 1 LTR            |    92 |
+| ONION                |   101 |
+| DIARYMILK SILK       |   138 |
+| CHILLY POWDER        |   148 |
+| KABSA KIT            |   173 |
+| COCONUT OIL 1 LTR    |   184 |
+| FOG BODYSPRAY        |   255 |
+| DINNER SET           |  1019 |
++----------------------+-------+
+12 rows in set (0.00 sec)
+
+mysql> 
+
+.......................................................................................................................................................
+
+2.Find minimum, maximum and average price of products.
+
+mysql> SELECT MIN(PRICE),MAX(PRICE),AVG(PRICE) FROM PRODUCT;
++------------+------------+------------+
+| MIN(PRICE) | MAX(PRICE) | AVG(PRICE) |
++------------+------------+------------+
+|          1 |       1019 |   176.9231 |
++------------+------------+------------+
+1 row in set (0.00 sec)
+
+
+
+.......................................................................................................................................................
+
+3.     Find number of customers in each city.
+
+
+mysql> SELECT COUNT(*), CITY  FROM CUSTOMER GROUP BY CITY ;
++----------+------------+
+| COUNT(*) | CITY       |
++----------+------------+
+|        2 | Calicut    |
+|        1 | Kozhikode  |
+|        1 | Malappuram |
+|        1 | Palakkad   |
+|        1 | Wayanad    |
++----------+------------+
+5 rows in set (0.00 sec)
+
+
+.......................................................................................................................................................
+
+4.    Find number of customers in each city, only include city with more than 2 customers.
+
+
+mysql> SELECT COUNT(*),CITY FROM CUSTOMER GROUP BY CITY HAVING COUNT(*)>=2;
++----------+---------+
+| COUNT(*) | CITY    |
++----------+---------+
+|        2 | Calicut |
++----------+---------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+
+.......................................................................................................................................................
+
+5.Show data as displayed ‘who, where’ Eg: ‘customer1 lives in Kochi’.
+
+
+mysql> SELECT CONCAT (NAME ," lives in ",CITY) AS CUSTOMER_INFORMATION FROM CUSTOMER;
++----------------------------+
+| CUSTOMER_INFORMATION       |
++----------------------------+
+| Maanas lives in Calicut    |
+| Aswin lives in Kozhikode   |
+| Vishnu lives in Calicut    |
+| Hari lives in Palakkad     |
+| Minhaj lives in Malappuram |
+| Vyshnav lives in Wayanad   |
++----------------------------+
+6 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
