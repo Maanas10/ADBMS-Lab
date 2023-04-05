@@ -1,5 +1,67 @@
                                   ***EXPERIMENT NO: 1.5 - ACCESSING DATABASE:  (SUBQUERY)***
+mysql> SELECT * FROM CUSTOMER;
++-----+---------+----------------------+------------+------------+
+| ID  | NAME    | ADDRESS              | PH_NO      | CITY       |
++-----+---------+----------------------+------------+------------+
+| 100 | Maanas  | Palakkunnummal House | 9020112197 | Calicut    |
+| 101 | Aswin   | Dreams villa House   |       NULL | Kozhikode  |
+| 102 | Vishnu  | Chembra House        | 9539963367 | Calicut    |
+| 104 | Hari    | Dreams House         |       NULL | Palakkad   |
+| 105 | Minhaj  | Vallyaveetil House   | 8086909939 | Malappuram |
+| 106 | Vyshnav | Sreenilyam House     | 7854328521 | Wayanad    |
++-----+---------+----------------------+------------+------------+
+6 rows in set (0.01 sec)
 
+mysql> SELECT * FROM PRODUCT;
++------+----------------------+-------+
+| P_ID | P_NAME               | PRICE |
++------+----------------------+-------+
+|  301 | DARK CHOCALATE       |     1 |
+|  323 | PINPOINT PEN         |    10 |
+|  332 | KABSA KIT            |   173 |
+|  335 | BASUMATHI RISE       |    92 |
+|  339 | AASHIRVAD AATTA 1KG  |    82 |
+|  432 | DIARYMILK SILK       |   138 |
+|  447 | LAYS CHIPS           |     5 |
+|  456 | 7UP 1 LTR            |    92 |
+|  467 | DINNER SET           |  1019 |
+|  487 | ONION                |   101 |
+|  643 | FOG BODYSPRAY        |   255 |
+|  743 | CHILLY POWDER        |   148 |
+|  987 | COCONUT OIL 1 LTR    |   184 |
++------+----------------------+-------+
+13 rows in set (0.00 sec)
+
+mysql> 
+
+mysql> SELECT * FROM INVOICE_ITEM;
++--------+------+----------+
+| INV_ID | P_ID | QUANTITY |
++--------+------+----------+
+|   1002 |  332 |        4 |
+|   1176 |  487 |        5 |
+|   1232 |  301 |       50 |
+|   1790 |  432 |        2 |
+|   1002 |  301 |        2 |
++--------+------+----------+
+5 rows in set (0.00 sec)
+
+mysql> 
+
+mysql> SELECT * FROM INVOICE_MASTER;
++--------+------+------------+
+| INV_ID | ID   | INV_DATE   |
++--------+------+------------+
+|   1002 |  100 | 2023-03-22 |
+|   1176 |  100 | 2023-04-23 |
+|   1232 |  102 | 2023-02-12 |
+|   1236 |  104 | 2023-01-03 |
+|   1239 |  101 | 2023-01-03 |
+|   1790 |  100 | 2023-01-25 |
++--------+------+------------+
+6 rows in set (0.00 sec)
+
+mysql> 
 
 
 
