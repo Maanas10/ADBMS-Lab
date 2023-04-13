@@ -62,15 +62,30 @@ mysql> SELECT COUNT(*), CITY  FROM CUSTOMER GROUP BY CITY ;
 4.    Find number of customers in each city, only include city with more than 2 customers.
 
 
-mysql> SELECT COUNT(*),CITY FROM CUSTOMER GROUP BY CITY HAVING COUNT(*)>=2; //WRONG QUERY
+mysql> SELECT * FROM CUSTOMER;
++-----+---------+----------------------+------------+------------+
+| ID  | NAME    | ADDRESS              | PH_NO      | CITY       |
++-----+---------+----------------------+------------+------------+
+| 100 | Maanas  | Palakkunnummal House | 9020112197 | Calicut    |
+| 101 | Aswin   | Dreams villa House   |       NULL | Kozhikode  |
+| 102 | Vishnu  | Chembra House        | 9539963367 | Calicut    |
+| 104 | Hari    | Dreams House         |       NULL | Palakkad   |
+| 105 | Minhaj  | Vallyaveetil House   | 8086909939 | Malappuram |
+| 106 | Vyshnav | Sreenilyam House     | 7854328521 | Wayanad    |
+| 107 | Abhi    | RAMNATH              | 8086325369 | Calicut    |
++-----+---------+----------------------+------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(*),CITY FROM CUSTOMER GROUP BY CITY HAVING COUNT(*)>2;  //WRONG QUERY UPDATED
 +----------+---------+
 | COUNT(*) | CITY    |
 +----------+---------+
-|        2 | Calicut |
+|        3 | Calicut |
 +----------+---------+
 1 row in set (0.00 sec)
 
 mysql> 
+
 
 
 .......................................................................................................................................................
