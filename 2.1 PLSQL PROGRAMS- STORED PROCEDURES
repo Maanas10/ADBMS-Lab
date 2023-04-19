@@ -1,0 +1,138 @@
+                                              
+                                        ***EXPERIMENT NO: 2.1 - PL/SQL PROGRAMS- STORED PROCEDURES***
+
+
+
+1.      Create a procedure to display all tables in the invoice database.
+
+
+mysql> DELIMITER // ;
+mysql> CREATE PROCEDURE ALLINVOICE5() BEGIN SELECT * FROM CUSTOMER;SELECT * FROM INVOICE_ITEM;SELECT * FROM INVOICE_MASTER;SELECT * FROM PRODUCT; END//
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CALL ALLINVOICE5()
+    -> //
++-----+---------+----------------------+------------+------------+
+| ID  | NAME    | ADDRESS              | PH_NO      | CITY       |
++-----+---------+----------------------+------------+------------+
+| 100 | Maanas  | Palakkunnummal House | 9020112197 | Calicut    |
+| 101 | Aswin   | Dreams villa House   |       NULL | Kozhikode  |
+| 102 | Vishnu  | Chembra House        | 9539963367 | Calicut    |
+| 104 | Hari    | Dreams House         |       NULL | Palakkad   |
+| 105 | Minhaj  | Vallyaveetil House   | 8086909939 | Malappuram |
+| 106 | Vyshnav | Sreenilyam House     | 7854328521 | Wayanad    |
+| 107 | Abhi    | RAMNATH              | 8086325369 | Calicut    |
++-----+---------+----------------------+------------+------------+
+7 rows in set (0.00 sec)
+
++--------+------+----------+
+| INV_ID | P_ID | QUANTITY |
++--------+------+----------+
+|   1002 |  332 |        4 |
+|   1176 |  487 |        5 |
+|   1232 |  301 |       50 |
+|   1790 |  432 |        2 |
+|   1002 |  301 |        2 |
+|   1236 |  323 |        5 |
+|   1239 |  487 |       12 |
++--------+------+----------+
+7 rows in set (0.00 sec)
+
++--------+------+------------+
+| INV_ID | ID   | INV_DATE   |
++--------+------+------------+
+|   1002 |  100 | 2023-03-22 |
+|   1176 |  100 | 2023-04-23 |
+|   1232 |  102 | 2023-02-12 |
+|   1236 |  104 | 2023-01-03 |
+|   1239 |  101 | 2023-01-03 |
+|   1790 |  100 | 2023-01-25 |
++--------+------+------------+
+6 rows in set (0.00 sec)
+
++------+----------------------+-------+
+| P_ID | P_NAME               | PRICE |
++------+----------------------+-------+
+|  301 | DARK CHOCALATE       |     6 |
+|  323 | PINPOINT PEN         |    15 |
+|  332 | KABSA KIT            |   178 |
+|  335 | BASUMATHI RISE       |    97 |
+|  339 | AASHIRVAD AATTA 1KG  |    87 |
+|  432 | DIARYMILK SILK       |   143 |
+|  447 | LAYS CHIPS           |    10 |
+|  456 | 7UP 1 LTR            |    97 |
+|  467 | DINNER SET           |  1024 |
+|  487 | ONION                |   106 |
+|  643 | FOG BODYSPRAY        |   260 |
+|  743 | CHILLY POWDER        |   153 |
+|  987 | COCONUT OIL 1 LTR    |   189 |
++------+----------------------+-------+
+13 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> 
+
+
+.....................................................................................................................................................
+
+2.      Create a procedure to find greatest of 3 numbers.
+
+mysql> DELIMITER // ;
+mysql> create procedure greatest(a int, b int , c int)
+    -> Begin
+    -> If (a>b) AND (a>c) then
+    -> Select a as 'greater';
+    -> Elseif (b>c)  AND (b>a) then
+    -> Select b as 'greater';
+    -> Else
+    -> Select c as 'greater';
+    -> End if;
+    -> END //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CALL greatest(1,3,5);
+    -> //
++---------+
+| greater |
++---------+
+|       5 |
++---------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> 
+
+
+.....................................................................................................................................................
+
+
+3.Create a procedure to display invoice details of a particular customer.
+
+mysql> DELIMITER // ;
+mysql> CREATE PROCEDURE P_CUST4(N varchar(15)) BEGIN SELECT CUSTOMER.NAME,PRODUCT.P_NAME,INVOICE_MASTER.INV_DATE,INVOICE_ITEM.QUANTITY FROM PRODUCT INNER JOIN INVOICE_ITEM ON PRODUCT.P_ID=INVOICE_ITEM.P_ID INNER JOIN INVOICE_MASTER ON INVOICE_ITEM.INV_ID=INVOICE_MASTER.INV_ID INNER JOIN CUSTOMER ON INVOICE_MASTER.ID=CUSTOMER.ID WHERE CUSTOMER.NAME=N; END//
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CALL P_CUST4('Maanas');
+    -> //
++--------+-----------------+------------+----------+
+| NAME   | P_NAME          | INV_DATE   | QUANTITY |
++--------+-----------------+------------+----------+
+| Maanas | KABSA KIT       | 2023-03-22 |        4 |
+| Maanas | DARK CHOCALATE  | 2023-03-22 |        2 |
+| Maanas | ONION           | 2023-04-23 |        5 |
+| Maanas | DIARYMILK SILK  | 2023-01-25 |        2 |
++--------+-----------------+------------+----------+
+4 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
