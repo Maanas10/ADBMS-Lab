@@ -1,0 +1,43 @@
+                                            ***EXPERIMENT NO: 2.2	-PL/SQL PROGRAMS – FUNCTIONS***               
+
+
+1. Create a function to calculate price_range(low, medium, high) of each product. If price<=5 indicate as low, upto 50 indicate as medium, and above as high.
+
+
+mysql> DELIMITER //
+mysql> CREATE FUNCTION Price_range(PRICE int)
+    -> RETURNS VARCHAR(20)
+    -> DETERMINISTIC
+    -> BEGIN
+    -> DECLARE Price_range varchar(20);
+    -> if PRICE<=5 THEN SET Price_range="LOW';
+    -> ELSEIF(PRICE>5 AND PRICE<=50) THEN SET Price_range='MEDIUM';
+    -> ELSEIF PRICE>50 THEN SET Price_range='HIGH';
+    -> END IF;
+    -> RETURN (Price_range);
+    -> END //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT P_ID,P_NAME,PRICE,Price_range1(PRICE) FROM PRODUCT;
+    -> //
++------+----------------------+-------+---------------------+
+| P_ID | P_NAME               | PRICE | Price_range1(PRICE) |
++------+----------------------+-------+---------------------+
+|  300 | MILKYBAR             |     1 | LOW                 |
+|  301 | DARK CHOCALATE       |     6 | MEDIUM              |
+|  323 | PINPOINT PEN         |    15 | MEDIUM              |
+|  332 | KABSA KIT            |   178 | HIGH                |
+|  335 | BASUMATHI RISE       |    97 | HIGH                |
+|  339 | AASHIRVAD AATTA 1KG  |    87 | HIGH                |
+|  432 | DIARYMILK SILK       |   143 | HIGH                |
+|  447 | LAYS CHIPS           |    10 | MEDIUM              |
+|  456 | 7UP 1 LTR            |    97 | HIGH                |
+|  467 | DINNER SET           |  1024 | HIGH                |
+|  487 | ONION                |   106 | HIGH                |
+|  643 | FOG BODYSPRAY        |   260 | HIGH                |
+|  743 | CHILLY POWDER        |   153 | HIGH                |
+|  987 | COCONUT OIL 1 LTR    |   189 | HIGH                |
++------+----------------------+-------+---------------------+
+14 rows in set (0.00 sec)
+
+
