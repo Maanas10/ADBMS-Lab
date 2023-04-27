@@ -40,4 +40,4 @@ mysql> SELECT P_ID,P_NAME,PRICE,Price_range(PRICE) FROM PRODUCT;
 +------+----------------------+-------+---------------------+
 14 rows in set (0.00 sec)
 
-
+//VERIFIED
