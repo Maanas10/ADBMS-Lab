@@ -1,0 +1,144 @@
+                                            ***EXPERIMENT NO: 2.3 -PL/SQL PROGRAMS – TRIGGER***
+
+
+1.Create a trigger to handle updates to the customer table.
+
+mysql> CREATE TRIGGER CUS BEFORE UPDATE ON CUSTOMER FOR EACH ROW BEGIN INSERT INTO CUST1 SET ID=OLD.ID,NAME=OLD.NAME,ADDRESS=OLD.ADDRESS,PH_NO=OLD.PH_NO,CITY=OLD.CITY; END
+    -> //
+Query OK, 0 rows affected (0.11 sec)
+
+mysql> UPDATE CUSTOMER SET CITY='Wayanad' WHERE ID=100;
+    -> //
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE CUSTOMER SET ADDRESS="Vishnu villa" WHERE ID=102;
+    -> //
+Query OK, 1 row affected (0.16 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM CUSTOMER;
+    -> //
++-----+---------+----------------------+------------+------------+
+| ID  | NAME    | ADDRESS              | PH_NO      | CITY       |
++-----+---------+----------------------+------------+------------+
+| 100 | Maanas  | Palakkunnummal House | 9598756567 | Wayanad    |
+| 101 | Aswin   | Dreams villa House   |       NULL | Kozhikode  |
+| 102 | Vishnu  | Vishnu villa         | 9539963367 | Calicut    |
+| 104 | Hari    | Dreams House         |       NULL | Palakkad   |
+| 105 | Minhaj  | Vallyaveetil House   | 8086909939 | Malappuram |
+| 106 | Vyshnav | Sreenilyam House     | 7854328521 | Wayanad    |
+| 107 | Abhi    | RAMNATH              | 8086325369 | Calicut    |
++-----+---------+----------------------+------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> 
+
+
+mysql> select * from CUST1;
+    -> //
++-----+--------+----------------------+------------+---------+
+| ID  | NAME   | ADDRESS              | PH_NO      | CITY    |
++-----+--------+----------------------+------------+---------+
+| 100 | Maanas | Palakkunnummal House | 9598756567 | Calicut |
+| 102 | Vishnu | Chembra House        | 9539963367 | Calicut |
++-----+--------+----------------------+------------+---------+
+2 rows in set (0.01 sec)
+
+
+
+...........................................................................................................................................................
+
+
+
+2. Create a trigger to handle inserts to the product relation ( if price < 5 the set price to 10).
+
+mysql> delimiter //
+mysql> SELECT * FROM PRODUCT
+    -> //
++------+----------------------+-------+
+| P_ID | P_NAME               | PRICE |
++------+----------------------+-------+
+|  300 | MILKYBAR             |     1 |
+|  301 | DARK CHOCALATE       |     6 |
+|  323 | PINPOINT PEN         |    15 |
+|  332 | KABSA KIT            |   178 |
+|  335 | BASUMATHI RISE       |    97 |
+|  339 | AASHIRVAD AATTA 1KG  |    87 |
+|  432 | DIARYMILK SILK       |   143 |
+|  447 | LAYS CHIPS           |    10 |
+|  456 | 7UP 1 LTR            |    97 |
+|  467 | DINNER SET           |  1024 |
+|  487 | ONION                |   106 |
+|  643 | FOG BODYSPRAY        |   260 |
+|  743 | CHILLY POWDER        |   153 |
+|  987 | COCONUT OIL 1 LTR    |   189 |
++------+----------------------+-------+
+14 rows in set (0.01 sec)
+
+
+mysql> create trigger product_relation before insert on PRODUCT for each row begin if new.PRICE < 5 then set new.price=10;end if; end
+    -> //
+Query OK, 0 rows affected (0.15 sec)
+
+
+
+mysql> INSERT INTO PRODUCT VALUES(303,'WHITE CHOCALATE',4);
+    -> //
+Query OK, 1 row affected (0.06 sec)
+
+mysql> SELECT * FROM PRODUCT
+    -> //
++------+----------------------+-------+
+| P_ID | P_NAME               | PRICE |
++------+----------------------+-------+
+|  300 | MILKYBAR             |     1 |
+|  301 | DARK CHOCALATE       |     6 |
+|  303 | WHITE CHOCALATE      |    10 |
+|  323 | PINPOINT PEN         |    15 |
+|  332 | KABSA KIT            |   178 |
+|  335 | BASUMATHI RISE       |    97 |
+|  339 | AASHIRVAD AATTA 1KG  |    87 |
+|  432 | DIARYMILK SILK       |   143 |
+|  447 | LAYS CHIPS           |    10 |
+|  456 | 7UP 1 LTR            |    97 |
+|  467 | DINNER SET           |  1024 |
+|  487 | ONION                |   106 |
+|  643 | FOG BODYSPRAY        |   260 |
+|  743 | CHILLY POWDER        |   153 |
+|  987 | COCONUT OIL 1 LTR    |   189 |
++------+----------------------+-------+
+15 rows in set (0.00 sec)
+
+mysql> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
