@@ -1,0 +1,104 @@
+                                                    Assignment 4: Retrieving Data
+                                                    _____________________________
+
+
+
+
+
+
+
+
+> db.customer.find()
+{ "_id" : ObjectId("64805804650b85c1777d1a60"), "ID" : "100", "NAME" : "Maanas", "ADDRESS" : "Palakkunnummal", "PH_NO" : "9020112197", "CITY" : "Kozhikode", "AGE" : "22" }
+{ "_id" : ObjectId("64805804650b85c1777d1a62"), "ID" : "102", "NAME" : "Vishnu", "ADDRESS" : "Chembra House", "PH_NO" : "9539963367", "CITY" : "Trivandrum", "AGE" : "59" }
+{ "_id" : ObjectId("64805804650b85c1777d1a63"), "ID" : "103", "NAME" : "Minhaj", "ADDRESS" : "Vallyaveetil House", "PH_NO" : "8086909939", "CITY" : "Malappuram", "AGE" : "29" }
+{ "_id" : ObjectId("64805804650b85c1777d1a64"), "ID" : "104", "NAME" : "Vyshnav", "ADDRESS" : "Sreenilyam", "PH_NO" : "7854328521", "CITY" : "Malappuram", "AGE" : "35" }
+> 
+
+1.      Write a MongoDB query to display the customer documents having city ‘ekm’,’tvm’.
+
+> db.customer.find({$or:[{'CITY':'Trivandrum'},{'CITY':'Kozhikode'}]}).pretty()
+{
+	"_id" : ObjectId("64805804650b85c1777d1a60"),
+	"ID" : "100",
+	"NAME" : "Maanas",
+	"ADDRESS" : "Palakkunnummal",
+	"PH_NO" : "9020112197",
+	"CITY" : "Kozhikode",
+	"AGE" : "22"
+}
+{
+	"_id" : ObjectId("64805804650b85c1777d1a62"),
+	"ID" : "102",
+	"NAME" : "Vishnu",
+	"ADDRESS" : "Chembra House",
+	"PH_NO" : "9539963367",
+	"CITY" : "Trivandrum",
+	"AGE" : "59"
+}
+> 
+
+...............................................................................................................................................
+
+
+2.     Write a MongoDB query to display all customer documents who have age >50.
+
+> db.customer.find({AGE:{$gt:'50'}}).pretty()
+{
+	"_id" : ObjectId("64805804650b85c1777d1a62"),
+	"ID" : "102",
+	"NAME" : "Vishnu",
+	"ADDRESS" : "Chembra House",
+	"PH_NO" : "9539963367",
+	"CITY" : "Trivandrum",
+	"AGE" : "59"
+}
+> 
+
+...............................................................................................................................................
+
+
+3.      Write a MongoDB query to find customer documents who not live in ‘tvm’.
+
+
+> db.customer.find({CITY:{$ne:'Trivandrum'}}).pretty()
+{
+	"_id" : ObjectId("64805804650b85c1777d1a60"),
+	"ID" : "100",
+	"NAME" : "Maanas",
+	"ADDRESS" : "Palakkunnummal",
+	"PH_NO" : "9020112197",
+	"CITY" : "Kozhikode",
+	"AGE" : "22"
+}
+{
+	"_id" : ObjectId("64805804650b85c1777d1a63"),
+	"ID" : "103",
+	"NAME" : "Minhaj",
+	"ADDRESS" : "Vallyaveetil House",
+	"PH_NO" : "8086909939",
+	"CITY" : "Malappuram",
+	"AGE" : "29"
+}
+{
+	"_id" : ObjectId("64805804650b85c1777d1a64"),
+	"ID" : "104",
+	"NAME" : "Vyshnav",
+	"ADDRESS" : "Sreenilyam",
+	"PH_NO" : "7854328521",
+	"CITY" : "Malappuram",
+	"AGE" : "35"
+}
+> 
+
+
+
+
+
+
+
+
+
+
+
+
