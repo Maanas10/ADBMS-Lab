@@ -1,0 +1,136 @@
+                                                     6 NoSQL – ADMINISTRATION
+                                                     ************************
+
+1.      Write a MongoDB query to create a user “CUSTOMER1” and grant the read role in the INVOICE database.
+
+> use admin
+switched to db admin
+
+
+> db.createUser({user: "Customer1",pwd:"Maanas",roles: [{ role: "read", db: "INVOICE" },]})
+Successfully added user: {
+	"user" : "Customer1",
+	"roles" : [
+		{
+			"role" : "read",
+			"db" : "INVOICE"
+		}
+	]
+}
+
+
+mongo -u Customer1 -p Maanas
+MongoDB shell version v4.4.1
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("ef04504c-942a-45ef-aa45-9773b2ce3367") }
+MongoDB server version: 4.4.1
+---
+The server generated these startup warnings when booting: 
+        2023-06-12T15:55:55.695+05:30: ***** SERVER RESTARTED *****
+        2023-06-12T15:55:55.926+05:30: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+        2023-06-12T15:55:58.939+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+---
+---
+        Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+        metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+        The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+        and anyone you share the URL with. MongoDB may use this information to make product
+        improvements and to suggest MongoDB products and deployment options to you.
+
+        To enable free monitoring, run the following command: db.enableFreeMonitoring()
+        To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+
+....................................................................................................................................................................
+
+2.      Write a MongoDB query to create the backup for the INVOICE database.
+
+ksb@ksb-optiplex-3060:~$ mongodump --db INVOICE
+2023-06-14T15:45:41.650+0530	writing INVOICE.customer to dump/INVOICE/customer.bson
+2023-06-14T15:45:41.650+0530	writing INVOICE.CUSTOMER to dump/INVOICE/CUSTOMER.bson
+2023-06-14T15:45:41.651+0530	done dumping INVOICE.CUSTOMER (0 documents)
+2023-06-14T15:45:41.651+0530	done dumping INVOICE.customer (4 documents)
+2023-06-14T15:45:41.673+0530	writing INVOICE.product to dump/INVOICE/product.bson
+2023-06-14T15:45:41.675+0530	done dumping INVOICE.product (9 documents)
+
+
+
+.........................................................................................................................................................
+
+
+
+
+3.      Write a MongoDB query to restore a particular database or a collection.
+
+> use INVOICE
+switched to db INVOICE
+> db.dropDatabase()
+{ "dropped" : "INVOICE", "ok" : 1 }
+> show dbs
+admin      0.000GB
+config     0.000GB
+invoicedb  0.000GB
+kmct       0.000GB
+local      0.000GB
+movie      0.000GB
+mydb       0.000GB
+test       0.000GB
+> 
+
+ksb@ksb-optiplex-3060:~$ mongorestore --db INVOICE dump/INVOICE
+2023-06-15T14:45:57.546+0530	The --db and --collection flags are deprecated for this use-case; please use --nsInclude instead, i.e. with --nsInclude=${DATABASE}.${COLLECTION}
+2023-06-15T14:45:57.546+0530	building a list of collections to restore from dump/INVOICE dir
+2023-06-15T14:45:57.546+0530	reading metadata for INVOICE.CUSTOMER from dump/INVOICE/CUSTOMER.metadata.json
+2023-06-15T14:45:57.547+0530	reading metadata for INVOICE.customer from dump/INVOICE/customer.metadata.json
+2023-06-15T14:45:57.547+0530	reading metadata for INVOICE.product from dump/INVOICE/product.metadata.json
+2023-06-15T14:45:57.967+0530	restoring INVOICE.product from dump/INVOICE/product.bson
+2023-06-15T14:45:57.979+0530	finished restoring INVOICE.product (9 documents, 0 failures)
+2023-06-15T14:45:58.124+0530	restoring INVOICE.customer from dump/INVOICE/customer.bson
+2023-06-15T14:45:58.136+0530	finished restoring INVOICE.customer (4 documents, 0 failures)
+2023-06-15T14:45:58.201+0530	restoring INVOICE.CUSTOMER from dump/INVOICE/CUSTOMER.bson
+2023-06-15T14:45:58.217+0530	finished restoring INVOICE.CUSTOMER (0 documents, 0 failures)
+2023-06-15T14:45:58.217+0530	no indexes to restore for collection INVOICE.CUSTOMER
+2023-06-15T14:45:58.217+0530	no indexes to restore for collection INVOICE.customer
+2023-06-15T14:45:58.217+0530	no indexes to restore for collection INVOICE.product
+2023-06-15T14:45:58.217+0530	13 document(s) restored successfully. 0 document(s) failed to restore.
+ksb@ksb-optiplex-3060:~$ mongo
+MongoDB shell version v4.4.1
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("f077b083-db0b-4da7-b742-116eff2aa2f4") }
+MongoDB server version: 4.4.1
+---
+The server generated these startup warnings when booting: 
+        2023-06-15T14:14:00.875+05:30: ***** SERVER RESTARTED *****
+        2023-06-15T14:14:01.081+05:30: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+        2023-06-15T14:14:04.104+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+---
+---
+        Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+        metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+        The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+        and anyone you share the URL with. MongoDB may use this information to make product
+        improvements and to suggest MongoDB products and deployment options to you.
+
+        To enable free monitoring, run the following command: db.enableFreeMonitoring()
+        To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+> show dbs
+INVOICE    0.000GB
+admin      0.000GB
+config     0.000GB
+invoicedb  0.000GB
+kmct       0.000GB
+local      0.000GB
+movie      0.000GB
+mydb       0.000GB
+test       0.000GB
+> 
+
+
+
+
+
+
+
+
